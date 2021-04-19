@@ -28,6 +28,7 @@ def users() -> str:
     except Exception:
         return jsonify({"message": "email already registered"}), 400
 
+
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
     """ Create a new session for the user, store it the session ID as a cookie
@@ -41,6 +42,21 @@ def login():
     res = jsonify({"email": email, "message": "logged in"})
     res.set_cookie('session_id', session_id)
     return res
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ Find the user with the requested session ID. If the user exists destroy
+        the session and redirect the user to GET /. If the user does not exist,
+        respond with a 403 HTTP status
+    """
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+    if not user:
+        abort(403)
+    AUTH.destroy_session(user.id)
+    return redirect('/')
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
