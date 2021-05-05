@@ -23,3 +23,7 @@ def print_logs():
     print(f"\tmethod PATCH: {get_logs({'method': 'PATCH'})}")
     print(f"\tmethod DELETE: {get_logs({'method': 'DELETE'})}")
     print(f"{get_logs({'method': 'GET', 'path': '/status'})} status check")
+
+
+if __name__ == "__main__":
+    print_logs()
