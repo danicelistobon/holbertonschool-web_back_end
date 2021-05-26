@@ -53,4 +53,7 @@ describe('calculateNumber type == DIVIDE', () => {
     assert.strictEqual(calculateNumber('DIVIDE', -22, 2), -11);
     assert.strictEqual(calculateNumber('DIVIDE', -5.7, 3), -2);
   });
+  it('Second num is 0', () => {
+    assert.strictEqual(calculateNumber('DIVIDE', 3, 0), 'Error');
+  });
 });
